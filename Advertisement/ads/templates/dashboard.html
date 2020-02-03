@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href='../static/ads/Dashboard/default.css' />
+        <link rel="stylesheet" type="text/css" href='../static/ads/Dashboard/component.css' />
+        <script src='../static/ads/Dashboard/modernizr.custom.js'></script>
+    </head>
+    <title>Dashboard</title>
+    <body background='../static/ads/Login/images/bg-01.jpg' >
+        <img align='right' src="../static/ads/index/logo.png" alt="">
+
+        <div class="container">	
+        </div>
+            <header class="clearfix">
+                <h1 align='center'><span>ADS</span></h1>	
+            </header>
+            <div class="main">
+                <p>Welcome to your dashboard, here you can get access and manage your account</p>
+                <div class="side">
+                    <nav class="dr-menu">
+                        <div class="dr-trigger"><span class="dr-icon dr-icon-menu"></span><a class="dr-label">Account</a></div>
+                        <ul>
+                            <li><a class="dr-icon dr-icon-user">{{user_name}}</a></li>
+                            <br>
+        
+                            <li><a class="dr-icon dr-icon-heart" href="/dashboard/time/">Favorite Time</a></li>
+                            <li><a class="dr-icon dr-icon-settings" href="/dashboard/settings/">Settings</a></li>
+                            <li><a class="dr-icon dr-icon-switch" href="/dashboard/logout/">Logout</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        
+        </div><!-- /container -->
+        <script src='../static/ads/Dashboard/ytmenu.js'></script>    </body>
+</html>

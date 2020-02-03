@@ -34,16 +34,17 @@ def register(request):
         password = request.POST.get('password')
 
         new_user = User.objects.create_user(username, email, password)
-        new_user.is_active = False
         new_user.first_name = first_name
         new_user.last_name = last_name
         new_user.save()
-        user = authenticate(username=username, password=password)
-        login(request, user)
         return HttpResponseRedirect('/login/')
     return render(request,'ads/register.html')
 
 
+@login_required
+def dashboard(request):
+    username = request.user.username
+    return render(request,'dashboard.html',{"user_name":username})
 
 def logged_in(request):
     if request.user.is_authenticated:
@@ -61,9 +62,15 @@ def loginn(request):
         if user is not None:
             login(request,user)
             print("login is true")
-            return HttpResponseRedirect('/1')
+            return HttpResponseRedirect('/dashboard')
         else:
             print("login is false")
             return HttpResponseRedirect('/login/')
 
     return render(request,'ads/login.html')
+
+
+def logout_view(request):  
+    username = request.user.username  
+    logout(request)
+    return HttpResponseRedirect('/login/')
