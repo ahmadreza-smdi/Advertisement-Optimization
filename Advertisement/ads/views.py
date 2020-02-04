@@ -16,7 +16,7 @@ def index_page(request):
 def wbs(request):
     c = Website.objects.all()
     c_length = len(c)
-    return render(request,'ads/web.html',{'c':c},{'clen':c_length}) 
+    return render(request,'ads/website.html',{'c':c},{'clen':c_length}) 
 
 
 def register(request):
