@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V01</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="../../static/ads/websites/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/vendor/perfect-scrollbar/perfect-scrollbar.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="../../static/ads/websites/css/util.css">
+<!--===============================================================================================-->
+<link rel="stylesheet" type="text/css" href="../../static/ads/websites/css/main.css">
+</head>
+<body>
+
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<div class="table100">
+					<table align="center !important">
+						<thead>
+							<tr class="table100-head">
+                                <th class="column4">ID</th>
+                                <th class="column">Website's NAME</th>
+                                <th class="column">Website's URL</th>
+
+                                
+							</tr>
+						</thead>
+						<tbody >
+							{% for i in c %}
+								<tr class='clickable-row' data-href='url://link-for-first-row/'>
+                                    <th class="column4">{{i.id}}</th>
+                                    <td class="column">{{i.name}}</td>
+                                    <td class="column">{{i.url}}</td>
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+<!--===============================================================================================-->
+	<script src="../../static/ads/websites/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="../../static/ads/websites/vendor/bootstrap/js/popper.js"></script>
+
+<!--===============================================================================================-->
+<script src="../../static/ads/websites/vendor/bootstrap/js/popper.js"></script>
+<script src="../../static/ads/websites/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+<script src="../../static/ads/websites/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="../../static/ads/websites/js/main.js"></script>
+
+</body>
+</html>
