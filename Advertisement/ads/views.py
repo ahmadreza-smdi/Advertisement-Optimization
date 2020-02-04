@@ -23,6 +23,16 @@ def wbs(request):
 
     return render(request,'ads/website.html',context) 
 
+@login_required
+def advs(request):
+    c = Adv.objects.all()
+    c_length = len(c)
+    context= {
+        'c': c,
+        'clen': c_length,
+        }
+
+    return render(request,'ads/ads.html',context) 
 
 def register(request):
     if request.method=='POST':

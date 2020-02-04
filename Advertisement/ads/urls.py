@@ -10,6 +10,9 @@ urlpatterns = [
     url(r'^dashboard/$',views.dashboard),
     url(r'^dashboard/logout/$',views.logout_view),
     url(r'^dashboard/websites/$',views.wbs),
+    url(r'^dashboard/advs/$',views.advs),
+
+    
 
 
 
