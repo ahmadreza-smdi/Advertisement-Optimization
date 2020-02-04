@@ -12,18 +12,12 @@ from django.contrib.auth.forms import UserCreationForm
 def index_page(request):
     return render(request, 'ads/index.html')
 
+@login_required
+def wbs(request):
+    c = Website.objects.all()
+    c_length = len(c)
+    return render(request,'ads/web.html',{'c':c},{'clen':c_length}) 
 
-# def register(request):
-#     if request.method=='POST':
-#         form = UserCreationForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=password)
-#             login(request, user)
-#             return redirect('home')
-#     return render(request,'ads/register.html')
 
 def register(request):
     if request.method=='POST':
