@@ -83,19 +83,23 @@ def ad(request):
 
 
 def register(request):
-    if request.method=='POST':
-        username = request.POST.get('username')
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        password = request.POST.get('password')
+    if request.user.is_authenticated:
+        username = request.user.username
+        return render(request,'dashboard.html',{"user_name":username})
+    else:
+        if request.method=='POST':
+            username = request.POST.get('username')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            email = request.POST.get('email')
+            password = request.POST.get('password')
 
-        new_user = User.objects.create_user(username, email, password)
-        new_user.first_name = first_name
-        new_user.last_name = last_name
-        new_user.save()
-        return HttpResponseRedirect('/login/')
-    return render(request,'ads/register.html')
+            new_user = User.objects.create_user(username, email, password)
+            new_user.first_name = first_name
+            new_user.last_name = last_name
+            new_user.save()
+            return HttpResponseRedirect('/login/')
+        return render(request,'ads/register.html')
 
 
 @login_required(login_url='/login/')
@@ -110,21 +114,25 @@ def logged_in(request):
         return False
 
 def loginn(request):
-    if request.method == 'POST':
-        username=request.POST.get('username','')
-        print("username:",username)
-        password=request.POST.get("password",'')
-        print("password",password)
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            login(request,user)
-            print("login is true")
-            return HttpResponseRedirect('/dashboard')
-        else:
-            print("login is false")
-            return HttpResponseRedirect('/login/')
+    if request.user.is_authenticated:
+        username = request.user.username
+        return render(request,'dashboard.html',{"user_name":username})
+    else:
+        if request.method == 'POST':
+            username=request.POST.get('username','')
+            print("username:",username)
+            password=request.POST.get("password",'')
+            print("password",password)
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request,user)
+                print("login is true")
+                return HttpResponseRedirect('/dashboard')
+            else:
+                print("login is false")
+                return HttpResponseRedirect('/login/')
 
-    return render(request,'ads/login.html')
+        return render(request,'ads/login.html')
 
 
 def logout_view(request):  
