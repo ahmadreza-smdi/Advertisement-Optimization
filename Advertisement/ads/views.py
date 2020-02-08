@@ -10,9 +10,29 @@ from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 def index_page(request):
-    return render(request, 'ads/index.html')
+    q = False
+    if request.user.is_authenticated:
+        q= True
 
-@login_required
+    context={
+        'q':q
+    }
+    return render(request, 'ads/index.html',context)
+
+    # with open('/media/ahmadreza/48AC8787AC876E6E/Project/Advertise/Advertisement/ads/sites.txt') as f:
+    #     sites = [line.rstrip() for line in f]
+
+    # with open('/media/ahmadreza/48AC8787AC876E6E/Project/Advertise/Advertisement/ads/descriptions.txt') as f:
+    #     descriptions = [line.rstrip() for line in f]
+    
+    # userid = request.user
+
+    # for i in range(len(sites)):
+    #     website = Website(url=sites[i],des = descriptions[i],user=userid)
+    #     website.save()
+
+
+@login_required(login_url='/login/')
 def wbs(request):
     c = Website.objects.all()
     c_length = len(c)
@@ -23,7 +43,8 @@ def wbs(request):
 
     return render(request,'ads/website.html',context) 
 
-@login_required
+@login_required(login_url='/login/')
+
 def advs(request):
     c = Adv.objects.all()
     c_length = len(c)
@@ -34,23 +55,19 @@ def advs(request):
 
     return render(request,'ads/ads.html',context) 
 
-@login_required
+@login_required(login_url='/login/')
 def regweb(request):
-    if request.method=='POST':
-        
+    if request.method=='POST': 
         userid = request.user
         url = request.POST.get('url')
         des = request.POST.get('des')
         website = Website(url=url,des = des,user=userid)
         website.save()
         return HttpResponseRedirect('/dashboard/websites/')
-
-
-        
-
-        
+     
     return render(request,'ads/AddWebsite.html')
 
+@login_required(login_url='/login/')
 def ad(request):
     p = False
     context= {
@@ -81,7 +98,7 @@ def register(request):
     return render(request,'ads/register.html')
 
 
-@login_required
+@login_required(login_url='/login/')
 def dashboard(request):
     username = request.user.username
     return render(request,'dashboard.html',{"user_name":username})

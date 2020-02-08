@@ -3,7 +3,7 @@
     <head>
         <title>ads</title>
     </head>
-    <body background='../static/ads/Login/images/bg-01.jpg'>
+    <body background='../static/ads/Login/images/bg-01.jpg' style="background-repeat: no-repeat;background-size: cover;">
         <div>
             <img src="../static/ads/index/logo.png" alt="">
             <div>
@@ -11,9 +11,17 @@
             </div>
         <div id='welcome'>
             <div align='center'>
+
+            </div>
+            <div align='center'>
                 <a id='login'href="/login/">
                     <img src="../static/ads/index/loginn.png" alt="Sign IN">
                 </a>
+                {%if q%}
+                    <a href="/dashboard">
+                        <img src="../static/ads/index/dash.png" alt="">
+                    </a>
+                {%endif%}
                 <a id='register' href="/registration/">
                     <img src="../static/ads/index/signupp.png" alt="Sign UP">
                 </a>
