@@ -4,15 +4,15 @@ from django.contrib.auth.models import User
 
 class Website(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    name = models.CharField(max_length=50)
     url = models.CharField(max_length=50)
+    des = models.CharField(max_length=200)
     def __str__(self):
-        return self.name
+        return self.url
 
 
 class Adv(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     context = models.CharField(max_length=2000)
-    Related_website_url = models.CharField(max_length=50)
+    Related_website_url = models.CharField(max_length=200)
     def __str__(self):
         return self.Related_website_url

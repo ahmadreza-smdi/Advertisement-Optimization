@@ -11,6 +11,8 @@ urlpatterns = [
     url(r'^dashboard/logout/$',views.logout_view),
     url(r'^dashboard/websites/$',views.wbs),
     url(r'^dashboard/advs/$',views.advs),
+    url(r'^dashboard/ad/$',views.ad),
+    url(r'dashboard/web/$',views.regweb)
 
     
 

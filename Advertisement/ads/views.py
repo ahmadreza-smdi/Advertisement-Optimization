@@ -34,6 +34,37 @@ def advs(request):
 
     return render(request,'ads/ads.html',context) 
 
+@login_required
+def regweb(request):
+    if request.method=='POST':
+        
+        userid = request.user
+        url = request.POST.get('url')
+        des = request.POST.get('des')
+        website = Website(url=url,des = des,user=userid)
+        website.save()
+        return HttpResponseRedirect('/dashboard/websites/')
+
+
+        
+
+        
+    return render(request,'ads/AddWebsite.html')
+
+def ad(request):
+    p = False
+    context= {
+        'p': p,
+        }
+    if request.method=='POST':
+        # addver = request.POST.get('Add')
+        context['p'] = True 
+        return render(request,'ads/AddAd.html',context)
+
+        
+    return render(request,'ads/AddAd.html',context)
+
+
 def register(request):
     if request.method=='POST':
         username = request.POST.get('username')

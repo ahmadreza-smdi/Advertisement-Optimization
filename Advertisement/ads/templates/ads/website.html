@@ -27,22 +27,22 @@
 		<div class="container-table100">
 			<div class="wrap-table100">
 				<div class="table100">
-					<table align="center !important">
-						<thead>
-							<tr class="table100-head">
-                                <th class="column4">ID</th>
-                                <th class="column">Website's NAME</th>
-                                <th class="column">Website's URL</th>
-
+					<table align="center !important" >
+						<thead dir="rtl">
+							<tr class="table100-head" dir="rtl">
+                                <th class="column1">ID</th>
+                                <th class="column1">Website's URL</th>
+								<th class="column2">Website's description</th>
+								<br>
                                 
 							</tr>
 						</thead>
-						<tbody >
+						<tbody>
 							{% for i in c %}
 								<tr class='clickable-row' data-href='url://link-for-first-row/'>
-                                    <th class="column4">{{i.id}}</th>
-                                    <td class="column">{{i.name}}</td>
-                                    <td class="column">{{i.url}}</td>
+                                    <th class="column1">{{i.id}}</th>
+                                    <td class="column2">{{i.url}}</td>
+                                    <td class="column8" style="direction: rtl;">{{i.des}}</td>
 								</tr>
 							{% endfor %}
 						</tbody>
