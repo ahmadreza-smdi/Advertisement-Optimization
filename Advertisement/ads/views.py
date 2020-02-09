@@ -15,12 +15,12 @@ import fasttext
 import fasttext.util
 from sklearn.cluster import KMeans
 
-# model = fasttext.load_model("cc.fa.300.bin.bin")
-# fasttext.util.reduce_model(model, 100)
-# normalizer = hazm.Normalizer()
-# stemmer = hazm.Stemmer()
-# lemmatizer = hazm.Lemmatizer()
-# tagger = hazm.POSTagger(model='resources/postagger.model')
+model = fasttext.load_model("cc.fa.300.bin.bin")
+fasttext.util.reduce_model(model, 100)
+normalizer = hazm.Normalizer()
+stemmer = hazm.Stemmer()
+lemmatizer = hazm.Lemmatizer()
+tagger = hazm.POSTagger(model='resources/postagger.model')
 
 def text2vec(text):
     text = normalizer.normalize(text)
@@ -51,6 +51,7 @@ def clustering(descriptions):
 
 
 def predict_related_sites(text, sites):
+    global kmeans
     cluster = kmeans.predict(text2vec(text))
     related_points = np.argwhere(kmeans.labels_ == cluster)
     related_sites = []
@@ -60,15 +61,12 @@ def predict_related_sites(text, sites):
     return related_sites
 
 
-
-# ********************** ye dor descriptions ro az database darar clustering ro run kon inja
-
 queries = Website.objects.all()
-sites = []
+descriptions = []
 for query in queries:
     descriptions.append(query.des)
 
-
+kmeans = clustering(descriptions)
 
 
 
@@ -127,6 +125,15 @@ def regweb(request):
         des = request.POST.get('des')
         website = Website(url=url,des = des,user=userid)
         website.save()
+
+        global kmeans
+        queries = Website.objects.all()
+        descriptions = []
+        for query in queries:
+            descriptions.append(query.des)
+        kmeans = clustering(descriptions)
+
+
         return HttpResponseRedirect('/dashboard/websites/')
      
     return render(request,'ads/AddWebsite.html')
