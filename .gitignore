@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+Advertisement/cc.fa.300.bin
+Advertisement/fastText/
+Advertisement/resources/
+.venv/
+
 # Distribution / packaging
 .Python
 build/

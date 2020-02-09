@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 from django.shortcuts import render,HttpResponseRedirect,redirect
 from django.contrib.auth import authenticate,logout,login
 from .models import Adv,Website    
@@ -6,6 +8,69 @@ import threading
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.contrib.auth.forms import UserCreationForm
+import hazm
+import numpy as np
+import matplotlib.pyplot as plt
+import fasttext
+import fasttext.util
+from sklearn.cluster import KMeans
+
+# model = fasttext.load_model("cc.fa.300.bin.bin")
+# fasttext.util.reduce_model(model, 100)
+# normalizer = hazm.Normalizer()
+# stemmer = hazm.Stemmer()
+# lemmatizer = hazm.Lemmatizer()
+# tagger = hazm.POSTagger(model='resources/postagger.model')
+
+def text2vec(text):
+    text = normalizer.normalize(text)
+    tagged_words = tagger.tag(hazm.word_tokenize(text))
+    words_vector = []
+    for tagged in tagged_words:
+        if tagged[1] == 'N' or tagged[1] == 'Ne':
+            word = lemmatizer.lemmatize(tagged[0])
+            if word == 'لپ':
+                word = 'لپتاپ'
+            if word == 'تاپ':
+                continue
+            words_vector.append(model.get_word_vector(word))
+
+    return np.mean(np.array(words_vector), axis=0)
+
+
+def clustering(descriptions):
+    descriptions_vectors = []
+    for text in descriptions:
+        descriptions_vectors.append(text2vec(text))
+
+    descriptions_vectors = np.array(descriptions_vectors)
+
+    kmeans = KMeans(n_clusters=12, random_state=0).fit(descriptions_vectors)
+
+    return kmeans
+
+
+def predict_related_sites(text, sites):
+    cluster = kmeans.predict(text2vec(text))
+    related_points = np.argwhere(kmeans.labels_ == cluster)
+    related_sites = []
+    for i in related_points:
+        related_sites.append(sites[i])
+
+    return related_sites
+
+
+
+# ********************** ye dor descriptions ro az database darar clustering ro run kon inja
+
+queries = Website.objects.all()
+sites = []
+for query in queries:
+    descriptions.append(query.des)
+
+
+
+
 
 # Create your views here.
 
@@ -17,7 +82,6 @@ def index_page(request):
     context={
         'q':q
     }
-    return render(request, 'ads/index.html',context)
 
     # with open('/media/ahmadreza/48AC8787AC876E6E/Project/Advertise/Advertisement/ads/sites.txt') as f:
     #     sites = [line.rstrip() for line in f]
@@ -30,7 +94,7 @@ def index_page(request):
     # for i in range(len(sites)):
     #     website = Website(url=sites[i],des = descriptions[i],user=userid)
     #     website.save()
-
+    return render(request, 'ads/index.html',context)
 
 @login_required(login_url='/login/')
 def wbs(request):
@@ -74,8 +138,33 @@ def ad(request):
         'p': p,
         }
     if request.method=='POST':
-        # addver = request.POST.get('Add')
+        text = request.POST.get('Add')
         context['p'] = True 
+        queries = Website.objects.all()
+        sites = []
+        for query in queries:
+            sites.append(query.url)
+
+        related_sites = predict_related_sites(text, sites)      
+        Related_website_url = ''
+
+        for site in related_sites:
+            Related_website_url += site + '\n'
+
+        userid = request.user
+        Adv = Adv(context=text,Related_website_url = Related_website_url,user=userid)
+        Adv.save()
+    
+
+
+              
+
+
+
+
+
+
+
         return render(request,'ads/AddAd.html',context)
 
         
