@@ -15,7 +15,7 @@ import fasttext
 import fasttext.util
 from sklearn.cluster import KMeans
 
-model = fasttext.load_model("cc.fa.300.bin.bin")
+model = fasttext.load_model("cc.fa.300.bin")
 fasttext.util.reduce_model(model, 100)
 normalizer = hazm.Normalizer()
 stemmer = hazm.Stemmer()
