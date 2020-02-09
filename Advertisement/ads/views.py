@@ -15,61 +15,61 @@ import fasttext
 import fasttext.util
 from sklearn.cluster import KMeans
 
-# import sys
-# print(sys.argv)
+import sys
+print(sys.argv)
 
-# model = fasttext.load_model("cc.fa.300.bin")
-# fasttext.util.reduce_model(model, 100)
-# normalizer = hazm.Normalizer()
-# stemmer = hazm.Stemmer()
-# lemmatizer = hazm.Lemmatizer()
-# tagger = hazm.POSTagger(model='resources/postagger.model')
+model = fasttext.load_model("cc.fa.300.bin")
+fasttext.util.reduce_model(model, 100)
+normalizer = hazm.Normalizer()
+stemmer = hazm.Stemmer()
+lemmatizer = hazm.Lemmatizer()
+tagger = hazm.POSTagger(model='resources/postagger.model')
 
-# def text2vec(text):
-#     text = normalizer.normalize(text)
-#     tagged_words = tagger.tag(hazm.word_tokenize(text))
-#     words_vector = []
-#     for tagged in tagged_words:
-#         if tagged[1] == 'N' or tagged[1] == 'Ne':
-#             word = lemmatizer.lemmatize(tagged[0])
-#             if word == 'لپ':
-#                 word = 'لپتاپ'
-#             if word == 'تاپ':
-#                 continue
-#             words_vector.append(model.get_word_vector(word))
+def text2vec(text):
+    text = normalizer.normalize(text)
+    tagged_words = tagger.tag(hazm.word_tokenize(text))
+    words_vector = []
+    for tagged in tagged_words:
+        if tagged[1] == 'N' or tagged[1] == 'Ne':
+            word = lemmatizer.lemmatize(tagged[0])
+            if word == 'لپ':
+                word = 'لپتاپ'
+            if word == 'تاپ':
+                continue
+            words_vector.append(model.get_word_vector(word))
 
-#     return np.mean(np.array(words_vector), axis=0)
-
-
-# def clustering(descriptions):
-#     descriptions_vectors = []
-#     for text in descriptions:
-#         descriptions_vectors.append(text2vec(text))
-
-#     descriptions_vectors = np.array(descriptions_vectors)
-
-#     kmeans = KMeans(n_clusters=12, random_state=0).fit(descriptions_vectors)
-
-#     return kmeans
+    return np.mean(np.array(words_vector), axis=0)
 
 
-# def predict_related_sites(text, sites):
-#     global kmeans
-#     cluster = kmeans.predict(np.expand_dims(text2vec(text), axis=0))
-#     related_points = np.argwhere(kmeans.labels_ == cluster)
-#     related_sites = []
-#     for i in related_points:
-#         related_sites.append(sites[i[0]])
+def clustering(descriptions):
+    descriptions_vectors = []
+    for text in descriptions:
+        descriptions_vectors.append(text2vec(text))
+
+    descriptions_vectors = np.array(descriptions_vectors)
+
+    kmeans = KMeans(n_clusters=12, random_state=0).fit(descriptions_vectors)
+
+    return kmeans
+
+
+def predict_related_sites(text, sites):
+    global kmeans
+    cluster = kmeans.predict(np.expand_dims(text2vec(text), axis=0))
+    related_points = np.argwhere(kmeans.labels_ == cluster)
+    related_sites = []
+    for i in related_points:
+        related_sites.append(sites[i[0]])
         
-#     return related_sites
+    return related_sites
 
 
-# queries = Website.objects.all()
-# descriptions = []
-# for query in queries:
-#     descriptions.append(query.des)
+queries = Website.objects.all()
+descriptions = []
+for query in queries:
+    descriptions.append(query.des)
 
-# kmeans = clustering(descriptions)
+kmeans = clustering(descriptions)
 
 # # Create your views here.
 
@@ -127,12 +127,12 @@ def regweb(request):
         website = Website(url=url,des = des,user=userid)
         website.save()
 
-        # global kmeans
-        # queries = Website.objects.all()
-        # descriptions = []
-        # for query in queries:
-        #     descriptions.append(query.des)
-        # kmeans = clustering(descriptions)
+        global kmeans
+        queries = Website.objects.all()
+        descriptions = []
+        for query in queries:
+            descriptions.append(query.des)
+        kmeans = clustering(descriptions)
 
 
         return HttpResponseRedirect('/dashboard/websites/')
@@ -162,19 +162,8 @@ def ad(request):
         userid = request.user
         adv = Adv(context=text,Related_website_url = Related_website_url,user=userid)
         adv.save()
-    
 
-
-              
-
-
-
-
-
-
-
-        return render(request,'ads/AddAd.html',context)
-
+        return render(request,'ads/ads.html')
         
     return render(request,'ads/AddAd.html',context)
 
