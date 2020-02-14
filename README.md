@@ -114,11 +114,14 @@ https://fasttext.cc/docs/en/pretrained-vectors.html
 put the .bin file in root of the project so the project could run
 
 
-NOTE: Dont forget to build your data base.\n
-Running the project would need at least 8 GB of ram and after the project's run it need 3 GB continuously to maintain the running
+NOTE 1: Dont forget to build your data base.
+
+
+NOTE 2:Running the project would need at least 8 GB of ram and after the project's run it need 3 GB continuously to maintain the running
 so it will take like 20 min to run the project
 
-NOTE:this website only works with PERSIAN language
+NOTE 3: this website only works with PERSIAN language
+
 ## Built With
 
 * [Python](https://www.python.org/) - Programming language
@@ -129,9 +132,16 @@ NOTE:this website only works with PERSIAN language
 * [boot strap](https://getbootstrap.com) - Front-end framework
 * [jquery](https://jquery.com) - JavaScript library
 
+* [Hazm library](https://github.com/alifars/hazm) - Python NLP library
+* [Fast text library](https://fasttext.cc/) - Python text classification library
+
+
+
 
 ## Authors
 
 * **Ahmadreza Samadi** - *Developer* - [Ahmadreza samadi](https://github.com/ahmadreza-smdi)
+* **Mohammadreza tohidi** - *Programmer* - [Mohammadreza Tohidi](https://github.com/tohidireza)
+
 
 *Thanks for your attention.*
