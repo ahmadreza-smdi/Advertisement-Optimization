@@ -1,5 +1,5 @@
 # Advertisement optimization
-considering the context of advertise, Suggest best website to put the ads on
+Suggest best website to put the ads on, considering the context of advertise
 
 ## Deep into the Project
 Given the content of a website, the overall interests of those who follow it can be assessed.
