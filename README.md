@@ -1,8 +1,6 @@
 # Advertisement optimization
 considering the context of advertise, Suggest best website to put the ads on
 
-NOTE: this website only works with PERSIAN language
-
 ## Deep into the Project
 Given the content of a website, the overall interests of those who follow it can be assessed.
 Given these interests, people can be grouped into different groups and the promotion of the product or service they want to offer to those interested in the product or service. Generally, targeted advertising is targeted at a specific audience, which may be a specific demographic, group, or individual.
@@ -116,11 +114,11 @@ https://fasttext.cc/docs/en/pretrained-vectors.html
 put the .bin file in root of the project so the project could run
 
 
-NOTE: Dont forget to build your data base.
-NOTE: Running the project would need at least 8 GB of ram and after the project's run it need 3 GB continuously to maintain the running
+NOTE: Dont forget to build your data base.\n
+Running the project would need at least 8 GB of ram and after the project's run it need 3 GB continuously to maintain the running
 so it will take like 20 min to run the project
 
-
+NOTE:this website only works with PERSIAN language
 ## Built With
 
 * [Python](https://www.python.org/) - Programming language
